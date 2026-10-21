@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: auravis-search
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements-deploy.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 120
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: AURAVIS_VISION_MODE
+        value: disabled

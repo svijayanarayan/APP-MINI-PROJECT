@@ -1,0 +1,22 @@
+AURAVIS — RENDER DEPLOYMENT NOTES
+
+This ZIP is prepared for deployment through your own GitHub and Render accounts. It does not create a public URL by itself.
+
+1. Extract this ZIP to a folder.
+2. Create a NEW GitHub repository and upload the extracted project files. Do not upload .env, passwords, API keys, venv, or model caches.
+3. Open https://render.com/ and sign in. Choose New > Blueprint (or create a Web Service from the GitHub repository).
+4. Select the repository containing render.yaml and apply the configuration.
+5. Wait for the build/deploy to finish. Render will show a public https://...onrender.com URL. Open it and test register/login, Education search, Movies search, themes, and profile features.
+
+IMPORTANT LIMITATIONS
+- The deployment requirements intentionally omit torch and transformers to keep the web service build smaller. The bundled local BLIP Offline Vision feature therefore will not work on this cloud deployment. Local search, account/profile, personalization, and CSV-backed datasets are the intended online-demo features.
+- AURAVIS uses SQLite at database/auravis.db. On free hosting, local filesystem/database data can be lost when the service restarts or redeploys. Treat this as a demo, not production hosting; accounts and history may reset.
+- A free service may sleep when idle and take a little time to wake up.
+- Do not add a paid API key unless you intend to use and pay for that API.
+- Image understanding is explicitly disabled in this cloud-demo configuration. For a full vision deployment, use a compatible host and configure model storage or a secured vision API separately.
+- Keep SECRET_KEY set by Render's generated environment variable.
+
+For a direct Web Service instead of Blueprint, use:
+Build command: pip install -r requirements-deploy.txt
+Start command: gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 120
+Set SECRET_KEY to a long random value in Environment.

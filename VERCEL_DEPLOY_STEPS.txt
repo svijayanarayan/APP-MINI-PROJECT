@@ -1,0 +1,14 @@
+AURAVIS VERCEL DEPLOYMENT
+
+1. Upload this entire extracted project to a GitHub repository (keep app.py, api/, templates/, static/, data/, vercel.json, requirements.txt at the repository root).
+2. In Vercel, choose Add New -> Project and import that GitHub repository.
+3. Framework Preset: Other. Root Directory: ./ (repository root). Do not override the Build Command or Output Directory unless Vercel requires it.
+4. In Project Settings -> Environment Variables, add:
+   SECRET_KEY = a long random secret value
+   AURAVIS_VISION_MODE = disabled
+5. Deploy, then open the generated .vercel.app URL and test registration, login, text search, education and movies.
+
+IMPORTANT LIMITATIONS:
+- This is a demo deployment configuration. Vercel serverless filesystem is temporary. The SQLite database and uploaded avatars are placed in /tmp on Vercel and can disappear when an instance restarts. User accounts/personalization are not guaranteed to persist. For a reliable public app, connect a managed database and object storage.
+- Local BLIP Offline Vision is not included in this lightweight serverless package. Hosted image search is disabled; local app can still use Offline Vision on your computer.
+- I cannot sign into or publish to your Vercel/GitHub account from this chat. You must authorize the repository import and click Deploy; do not share passwords or tokens in chat.
